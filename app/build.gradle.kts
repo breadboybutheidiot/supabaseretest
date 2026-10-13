@@ -1,16 +1,13 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlinX.serialization)
 }
 
 android {
     namespace = "com.example.supabaseretest"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.supabaseretest"
@@ -31,38 +28,51 @@ android {
             )
         }
     }
+
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
+
     buildFeatures {
         compose = true
     }
 }
 
 dependencies {
-    implementation("io.github.jan-tennert.supabase:storage-kt")
-    implementation("io.coil-kt.coil3:coil-compose:3.0.2")
-    implementation("io.coil-kt.coil3:coil-network-ktor3:3.0.2")
     implementation(platform("io.github.jan-tennert.supabase:bom:3.0.2"))
+
     implementation("io.github.jan-tennert.supabase:postgrest-kt")
     implementation("io.github.jan-tennert.supabase:auth-kt")
+
     implementation("io.ktor:ktor-client-android:3.0.2")
-    implementation("androidx.navigation:navigation-compose")
+
+    implementation("io.coil-kt.coil3:coil-compose:3.0.2")
+    implementation("io.coil-kt.coil3:coil-network-ktor3:3.0.2")
+
     implementation("androidx.navigation:navigation-compose:2.8.5")
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
+
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+
     testImplementation(libs.junit)
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+}
+
+kotlin {
+    jvmToolchain(17)
 }
